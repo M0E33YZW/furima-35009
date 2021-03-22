@@ -4,74 +4,84 @@
 
 ## users テーブル
 
-| Column    | Type   | Options     |
-| --------- | ------ | ----------- |
-| email     | string | null: false |
-| password  | string | null: false |
-| nickname  | string | null: false |
-| lastname  | string | null: false |
-| firstname | string | null: false |
-| lastkana  | string | null: false |
-| firstkana | string | null: false |
-| birthday  | string | null: false |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| nickname           | string | null: false               |
+| lastname           | string | null: false               |
+| firstname          | string | null: false               |
+| lastkana           | string | null: false               |
+| firstkana          | string | null: false               |
+| birthday           | date   | null: false               |
 
 ### Association
 
-- has_many :items
-- has_many :comments, through: items
-- has_many :orders,   through: items
+- has_many  :items    , dependent: :destroy
+- has_many  :comments , dependent: :destroy
+- has_many  :orders
 
 
 ## items テーブル
 
 | Column      | Type       | Options                        |
 | ----------- | ---------- | ------------------------------ |
+| user_id     | references | null: false, foreign_key: true |
 | title       | string     | null: false                    |
-| description | string     | null: false                    |
-| category    | string     | null: false                    |
-| status      | string     | null: false                    |
-| delivery    | string     | null: false                    |
-| shipping    | string     | null: false                    |
-| area        | string     | null: false                    |
-| days        | string     | null: false                    |
-| user        | references | null: false, foreign_key: true |
+| description | text       | null: false                    |
+| category_id | integer    | null: false                    |
+| status_id   | integer    | null: false                    |
+| shipping_id | integer    | null: false                    |
+| area_id     | integer    | null: false                    |
+| day_id      | integer    | null: false                    |
+| price       | integer    | null: false                    |
 
 ### Association
 
 - belongs_to :user
-- has_many :comments, through: user
-- belongs_to :order
+- has_many   :comments ,dependent: :destroy
+- has_one    :order
 
 
 ## orders テーブル
 
-| Column       | Type       | Options                        |
-| ------------ | ---------- | ------------------------------ |
-| cardnumber   | string     | null: false                    |
-| validmonth   | string     | null: false                    |
-| validyear    | string     | null: false                    |
-| cord         | string     | null: false                    |
-| postal       | string     | null: false                    |
-| prefectures  | string     | null: false                    |
-| municipality | string     | null: false                    |
-| address      | string     | null: false                    |
-| building     | string     |                                |
-| phone        | string     | null: false                    |
-| item         | references | null: false, foreign_key: true |
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| user_id | references | null: false, foreign_key: true |
+| item_id | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
+- has_one    :destinations
+
+
+## destinations テーブル
+
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| order_id     | references | null: false, foreign_key: true |
+| zipcode      | integer    | null: false                    |
+| prefectures  | string     | null: false                    |
+| city         | string     | null: false                    |
+| address      | string     | null: false                    |
+| building     | string     |                                |
+| phone        | string     | null: false                    |
+
+### Association
+
+- belongs_to :user
+- belongs_to :order
 
 
 ## comments テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
-| text    | text       | null:                          |
-| user    | references | null: false, foreign_key: true |
-| item    | references | null: false, foreign_key: true |
+| text    | text       | null: false                    |
+| user_id | references | null: false, foreign_key: true |
+| item_id | references | null: false, foreign_key: true |
 
 ### Association
 
