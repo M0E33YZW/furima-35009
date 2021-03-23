@@ -9,9 +9,9 @@ class User < ApplicationRecord
   has_many :orders
        
   validates :nickname,  presence: true
-  validates :lastname,  presence: true
-  validates :firstname, presence: true
-  validates :lastkana,  presence: true
-  validates :firstkana, presence: true
+  validates :lastname,  presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]/ }
+  validates :firstname, presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]/ }
+  validates :lastkana,  presence: true, format: {with: /\A[ァ-ヶー－]+\z/ }
+  validates :firstkana, presence: true, format: {with: /\A[ァ-ヶー－]+\z/ }
   validates :birthday,  presence: true
 end
