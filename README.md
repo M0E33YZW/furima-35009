@@ -17,8 +17,8 @@
 
 ### Association
 
-- has_many  :items    , dependent: :destroy
-- has_many  :comments , dependent: :destroy
+- has_many  :items
+- has_many  :comments
 - has_many  :orders
 
 
@@ -39,7 +39,7 @@
 ### Association
 
 - belongs_to :user
-- has_many   :comments ,dependent: :destroy
+- has_many   :comments
 - has_one    :order
 
 
@@ -54,7 +54,7 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one    :destinations
+- has_one    :destination
 
 
 ## destinations テーブル
@@ -71,7 +71,6 @@
 
 ### Association
 
-- belongs_to :user
 - belongs_to :order
 
 
