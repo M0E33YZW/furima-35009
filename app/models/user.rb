@@ -7,12 +7,14 @@ class User < ApplicationRecord
   has_many :items
   has_many :comments
   has_many :orders
-       
-  validates :nickname,  presence: true
-  validates :encrypted_password, presence: true, length: {minimum: 6}
-  validates :lastname,  presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]/} 
-  validates :firstname, presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]/}
-  validates :lastkana,  presence: true, format: {with: /\A[ァ-ヶー－]+\z/}
-  validates :firstkana, presence: true, format: {with: /\A[ァ-ヶー－]+\z/}
-  validates :birthday,  presence: true
+  
+  with_options presence: true do
+    validates :nickname
+    validates :password,  format: {with: /[a-z\d]{6,}/i}
+    validates :lastname,  format: {with: /\A[ぁ-んァ-ン一-龥々ー]+\z/} 
+    validates :firstname, format: {with: /\A[ぁ-んァ-ン一-龥々ー]+\z/}
+    validates :lastkana,  format: {with: /\A[ァ-ヶー－]+\z/}
+    validates :firstkana, format: {with: /\A[ァ-ヶー－]+\z/}
+    validates :birthday
+  end
 end
