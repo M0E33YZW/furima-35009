@@ -12,8 +12,13 @@ class Item < ApplicationRecord
   belongs_to :day
 
   with_options presence: true do
+    validates :image
     validates :title
     validates :description
+    validates :price, numericality: {
+      greater_than_or_equal_to: 300,
+      less_than: 9999999
+    }
     with_options numericality: { other_than: 1 } do
       validates :category_id
       validates :status_id
