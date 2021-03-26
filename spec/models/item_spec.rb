@@ -40,22 +40,22 @@ RSpec.describe Item, type: :item do
       it '商品のカテゴリー選択がない場合は登録できない' do
         @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category must be other than 1")
+        expect(@item.errors.full_messages).to include('Category must be other than 1')
       end
       it '配送料の負担の選択がない場合は登録できない' do
         @item.shipping_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping must be other than 1")
+        expect(@item.errors.full_messages).to include('Shipping must be other than 1')
       end
       it '発送元の地域の選択がない場合は登録できない' do
         @item.area_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Area must be other than 1")
+        expect(@item.errors.full_messages).to include('Area must be other than 1')
       end
       it '発送までの日数の選択がない場合は登録できない' do
         @item.day_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Day must be other than 1")
+        expect(@item.errors.full_messages).to include('Day must be other than 1')
       end
       it '販売価格がない場合は登録できない' do
         @item.price = nil
@@ -68,7 +68,7 @@ RSpec.describe Item, type: :item do
         expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
       it '販売価格が10000000だと登録できない' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
