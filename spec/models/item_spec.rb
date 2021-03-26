@@ -38,42 +38,52 @@ RSpec.describe Item, type: :item do
         expect(@item.errors.full_messages).to include("Description can't be blank")
       end
       it '商品のカテゴリー選択がない場合は登録できない' do
-        @item.category_id = nil
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
       it '配送料の負担の選択がない場合は登録できない' do
-        @item.shipping_id = nil
+        @item.shipping_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping can't be blank")
+        expect(@item.errors.full_messages).to include("Shipping must be other than 1")
       end
       it '発送元の地域の選択がない場合は登録できない' do
-        @item.area_id = nil
+        @item.area_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Area can't be blank")
+        expect(@item.errors.full_messages).to include("Area must be other than 1")
       end
       it '発送までの日数の選択がない場合は登録できない' do
-        @item.day_id = nil
+        @item.day_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Day can't be blank")
+        expect(@item.errors.full_messages).to include("Day must be other than 1")
       end
       it '販売価格がない場合は登録できない' do
         @item.price = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
-      it '販売価格が299以下だと登録できないこと' do
-        @item.price = '299'
+      it '販売価格が299以下だと登録できない' do
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
-      it '販売価格が10000000だと登録できないこと' do
-        @item.price = '10000000'
+      it '販売価格が10000000だと登録できない' do
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
-      it '販売価格は全角だと登録できない' do
+      it '販売価格が全角だと登録できない' do
         @item.price = '３００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+      it '販売価格が半角英数字混合では登録できない' do
+        @item.price = 'abc123'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+      it '販売価格は半角英語では登録できない' do
+        @item.price = 'abc'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
