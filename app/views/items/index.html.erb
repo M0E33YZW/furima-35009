@@ -125,8 +125,8 @@
     <h2 class='title'>ピックアップカテゴリー</h2>
     <%= link_to '新規投稿商品', "#", class: "subtitle" %>
     <ul class='item-lists'>
-    <%if @items.present? %>
-      <% @items.each do | item | %>
+    <%#if @items.present? %>
+      <%# @items.each do | item | %>
       <li class='list'>
         <%= link_to "#" do %>
         <div class='item-img-content'>
@@ -177,10 +177,10 @@
   </div>
   <%# /商品一覧 %>
 </div>
-<% if user_signed_in? %>
+<%# if user_signed_in? %>
   <%= link_to('#', class: 'purchase-btn') do %>
     <span class='purchase-btn-text'>出品する</span>
     <%= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
   <% end %>
-<% end %>
+<%# end %>
 <%= render "shared/footer" %>

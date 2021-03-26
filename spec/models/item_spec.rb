@@ -11,12 +11,12 @@ RSpec.describe Item, type: :item do
         expect(@item).to be_valid
       end
       it '販売価格が¥300だと登録できる' do
-        @item.price = '300'
+        @item.price = 300
         @item.valid?
         expect(@item).to be_valid
       end
       it '販売価格が¥9999999だと登録できる' do
-        @item.price = '9999999'
+        @item.price = 9999999
         @item.valid?
         expect(@item).to be_valid
       end
@@ -41,6 +41,11 @@ RSpec.describe Item, type: :item do
         @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Category must be other than 1')
+      end
+      it '商品の状態の選択がない場合は登録できない' do
+        @item.status_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Status must be other than 1')
       end
       it '配送料の負担の選択がない場合は登録できない' do
         @item.shipping_id = 1
