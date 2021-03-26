@@ -19,6 +19,7 @@ class ItemsController < ApplicationController
   end
 
   private
+  def edit
 
   def item_params
     params.require(:item).permit(:image, :title, :description, :category_id, :status_id, :shipping_id, :area_id, :day_id,
