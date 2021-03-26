@@ -16,7 +16,7 @@ RSpec.describe Item, type: :item do
         expect(@item).to be_valid
       end
       it '販売価格が¥9999999だと登録できる' do
-        @item.price = 9999999
+        @item.price = 9_999_999
         @item.valid?
         expect(@item).to be_valid
       end
