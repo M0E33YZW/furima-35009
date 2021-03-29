@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, except: :index
+  before_action :sold_out_item, only: [:index]
   before_action :set_items, only: [:index, :create]
 
   def index
@@ -32,11 +33,15 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = "sk_test_ca11b9c954bdc0281f3aa7ea"
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+  
+  def sold_out_item
+    redirect_to root_path if @item.order.present?
   end
 end
