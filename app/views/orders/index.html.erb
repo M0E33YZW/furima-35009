@@ -32,6 +32,7 @@
     <%# /支払額の表示 %>
 
     <%= form_with model: @order_destination, url: item_orders_path, id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
+    <%= render 'shared/error_messages', model: @order_destination %>
     <%# カード情報の入力 %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
@@ -82,7 +83,7 @@
           <label class="form-text">郵便番号</label>
           <span class="indispensable">必須</span>
         </div>
-        <%= f.text_field 'zipcord', class:"input-default", id:"zipcode", placeholder:"例）123-4567", maxlength:"8" %>
+        <%= f.text_field 'zipcode', class:"input-default", id:"zipcode", placeholder:"例）123-4567", maxlength:"8" %>
       </div>
       <div class="form-group">
         <div class='form-text-wrap'>
