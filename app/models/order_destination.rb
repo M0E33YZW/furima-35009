@@ -5,10 +5,10 @@ class OrderDestination
   with_options presence: true do
     validates :user_id
     validates :item_id
-    validates :zipcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/ }
+    validates :zipcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
     validates :city
     validates :address
-    validates :phone
+    validates :phone, format: {with: /\A\d{10,11}\z/ }
     validates :token
   end
   validates :area_id, numericality: { other_than: 1 } 
