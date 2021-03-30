@@ -48,12 +48,12 @@ RSpec.describe OrderDestination, type: :model do
       it '電話番号が英数混合では登録できない' do
         @order_destination.phone = '0123456test'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Phone is invalid")
+        expect(@order_destination.errors.full_messages).to include('Phone is invalid')
       end
       it '電話番号が12桁以上では登録できない' do
         @order_destination.phone = '090123456789'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Phone is invalid")
+        expect(@order_destination.errors.full_messages).to include('Phone is invalid')
       end
       it 'tokenが空では登録できない' do
         @order_destination.token = nil

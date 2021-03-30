@@ -2,7 +2,6 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_items, only: [:index, :create]
 
-
   def index
     @order_destination = OrderDestination.new
     redirect_to root_path if current_user == @item.user || @item.order.present?
