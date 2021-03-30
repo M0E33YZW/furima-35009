@@ -8,6 +8,6 @@ FactoryBot.define do
     building { '東京ハイツ' }
     phone    { Faker::Number.number(digits: 11)}
     association :user
-    item_id { 1 }
+    association :item
   end
 end
