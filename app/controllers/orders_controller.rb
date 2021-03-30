@@ -1,14 +1,20 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: :index
-  before_action :sold_out_item, only: [:index]
+  before_action :move_to_index
   before_action :set_items, only: [:index, :create]
 
   def index
     @order_destination = OrderDestination.new
+    if current_user == @item.user
+      redirect_to root_path
+    end
+    if @item.order.present?
+      redirect_to root_path
+    end
   end
 
   def new
     @order_destination = OrderDestination.new(order_params)
+
   end
   
   def create
@@ -40,8 +46,10 @@ class OrdersController < ApplicationController
       currency: 'jpy'
     )
   end
-  
-  def sold_out_item
-    redirect_to root_path if @item.order.present?
+
+  def move_to_index
+    unless user_signed_in?
+      redirect_to user_session_path
+    end
   end
 end
