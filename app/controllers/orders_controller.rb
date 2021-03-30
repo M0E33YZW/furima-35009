@@ -1,13 +1,10 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :move_to_index, only: [:create, :update]
+  before_action :move_to_index only: :create
   before_action :set_items, only: [:index, :create]
 
   def index
     @order_destination = OrderDestination.new
-  end
-
-  def new
   end
 
   def create
