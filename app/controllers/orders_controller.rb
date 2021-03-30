@@ -32,6 +32,7 @@ class OrdersController < ApplicationController
 
   def move_to_index
     redirect_to root_path if current_user == @item.user || @item.order.present?
+  end
 
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
